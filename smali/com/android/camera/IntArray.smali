@@ -49,7 +49,7 @@
 
     iget v2, p0, Lcom/android/camera/IntArray;->mSize:I
 
-    if-ne v1, v2, :cond_0
+    if-ne v1, v2, :cond_1
 
     .line 27
     iget v1, p0, Lcom/android/camera/IntArray;->mSize:I
@@ -66,14 +66,26 @@
 
     iget v2, p0, Lcom/android/camera/IntArray;->mSize:I
 
-    invoke-static {v1, v3, v0, v3, v2}, Ljava/lang/System;->arraycopy([II[III)V
+    const/4 p1, 0x0
+
+    :goto_0
+    if-ge p1, v2, :cond_0
+
+    aget v3, v1, p1
+
+    aput v3, v0, p1
+
+    add-int/lit8 p1, p1, 0x1
+
+    goto :goto_0
 
     .line 29
+    :cond_0
     iput-object v0, p0, Lcom/android/camera/IntArray;->mData:[I
 
     .line 31
     .end local v0    # "temp":[I
-    :cond_0
+    :cond_1
     iget-object v1, p0, Lcom/android/camera/IntArray;->mData:[I
 
     iget v2, p0, Lcom/android/camera/IntArray;->mSize:I
@@ -112,21 +124,18 @@
 
     iget v1, p0, Lcom/android/camera/IntArray;->mSize:I
 
-    if-ge v0, v1, :cond_1
+    if-ge v0, v1, :cond_0
 
     .line 40
-    :cond_0
-    iget v0, p0, Lcom/android/camera/IntArray;->mSize:I
-
-    new-array p1, v0, [I
-
     .line 42
-    :cond_1
+    :cond_0
     iget-object v0, p0, Lcom/android/camera/IntArray;->mData:[I
 
-    iget v1, p0, Lcom/android/camera/IntArray;->mSize:I
+    invoke-virtual {v0}, [I->clone()Ljava/lang/Object;
 
-    invoke-static {v0, v2, p1, v2, v1}, Ljava/lang/System;->arraycopy([II[III)V
+    move-result-object p1
+
+    check-cast p1, [I
 
     .line 43
     return-object p1
